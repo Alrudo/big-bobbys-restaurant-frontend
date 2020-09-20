@@ -1,4 +1,4 @@
-# big-bobbys-restaurant-frontend
+# Big Bobby's restaurant Frontend
 
 ## Project setup
 ```
