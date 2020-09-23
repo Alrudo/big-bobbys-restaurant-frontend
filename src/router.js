@@ -3,28 +3,28 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export  default new Router({
+export default new Router({
     mode: 'history',
-    routs: [
+    routes: [
         {
             path: '/',
-            components: () => import('./views/Home')
+            component: () => import('./views/Home')
         },
         {
             path: '/order',
-            components: () => import('./views/Order')
-        },
-        {
-            path: '/gallery',
-            components: () => import('./views/Gallery')
-        },
-        {
-            path: '/menu',
-            components: () => import('./views/Order')
+            component: () => import('./views/Order')
         },
         {
             path: '/contacts',
-            components: () => import('./views/Contacts')
+            component: () => import('./views/Contacts')
+        },
+        {
+            path: '/gallery',
+            component: () => import('./views/Gallery')
+        },
+        {
+            path: '/menu',
+            component: () => import('./views/Menu')
         }
     ]
 })

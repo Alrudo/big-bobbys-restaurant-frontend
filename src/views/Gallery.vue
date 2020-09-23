@@ -11,6 +11,6 @@ name: "Gallery"
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

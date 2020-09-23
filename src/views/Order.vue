@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <p>Order</p>
+  <div id="app">
+    Order
   </div>
 </template>
 
@@ -11,6 +11,6 @@ name: "Order"
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>
