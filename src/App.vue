@@ -57,7 +57,7 @@ html, body{
   background-color: #190e00;
   border-top: 4px solid #5a2a0e;
   box-shadow: 1px 1px 5px #5a2a0e;
-  height: 60px;
+  height: 65px;
   width: 100%;
   font-family: 'Grandstander', cursive;
 }
@@ -65,12 +65,13 @@ html, body{
   padding-top: 0;
   margin-top: 0;
   color: gold;
-  font-size: 20px;
+  font-size: 22px;
   text-shadow: 1px 1px 2px black;
   line-height: 60px;
 }
 #navbar .container .nav-link{
   padding-top: 0;
+  padding-bottom: 0;
   margin-right: 32px;
   color: gold;
 }
