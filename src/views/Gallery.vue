@@ -1,6 +1,6 @@
 <template>
   <div>
-
+    <p>Gallery</p>
   </div>
 </template>
 
@@ -11,6 +11,6 @@ name: "Gallery"
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

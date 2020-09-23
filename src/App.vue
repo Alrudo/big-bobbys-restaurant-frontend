@@ -6,11 +6,11 @@
     <div id="navbar">
       <b-navbar class="container justify-content-center" type="alert" variant="transparent">
         <b-navbar-nav>
-          <b-nav-item href="#">Avaleht</b-nav-item>
-          <b-nav-item href="#">Menüü</b-nav-item>
-          <b-nav-item href="#">Tellimine</b-nav-item>
-          <b-nav-item href="#">Galerii</b-nav-item>
-          <b-nav-item href="#">Kontakt</b-nav-item>
+          <b-nav-item router-link to="/">Avaleht</b-nav-item>
+          <b-nav-item router-link to="/menu">Menüü</b-nav-item>
+          <b-nav-item router-link to="/order">Tellimine</b-nav-item>
+          <b-nav-item router-link to="/gallery">Galerii</b-nav-item>
+          <b-nav-item router-link to="/contacts">Kontakt</b-nav-item>
         </b-navbar-nav>
       </b-navbar>
 <!--      <div class="container">  -->
@@ -21,6 +21,7 @@
 <!--        <div>Meist</div>       -->
 <!--      </div>                   -->
     </div>
+    <router-view />
   </div>
 </template>
 

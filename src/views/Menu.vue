@@ -1,6 +1,6 @@
 <template>
   <div>
-
+    <p>Menu</p>
   </div>
 </template>
 
@@ -11,6 +11,6 @@ name: "Menu"
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>
