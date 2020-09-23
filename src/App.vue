@@ -13,13 +13,13 @@
           <b-nav-item href="#">Kontakt</b-nav-item>
         </b-navbar-nav>
       </b-navbar>
-<!--      <div class="container">-->
-<!--        <div>Avaleht</div>-->
-<!--        <div>Menüü</div>-->
-<!--        <div>Tellimine</div>-->
-<!--        <div>Galerii</div>-->
-<!--        <div>Meist</div>-->
-<!--      </div>-->
+<!--      <div class="container">  -->
+<!--        <div>Avaleht</div>     -->
+<!--        <div>Menüü</div>       -->
+<!--        <div>Tellimine</div>   -->
+<!--        <div>Galerii</div>     -->
+<!--        <div>Meist</div>       -->
+<!--      </div>                   -->
     </div>
   </div>
 </template>
