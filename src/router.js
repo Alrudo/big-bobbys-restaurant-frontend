@@ -11,8 +11,8 @@ export default new Router({
             component: () => import('./views/Home')
         },
         {
-            path: '/order',
-            component: () => import('./views/Order')
+            path: '/cart',
+            component: () => import('./views/Cart')
         },
         {
             path: '/contacts',

@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch">
           <div class="card">
-            <img class="card-img-top" src="@/assets/img/kaks-pepperonit.jpg" alt="img not found">
+            <img class="card-img-top" src="@/assets/img/kaks-pepperonit.jpg" alt="kaks-pepperonit">
             <div class="card-body">
               <h5 class="card-title">Kaks pepperonit</h5>
               <p class="card-text">Kõige populaarsem pitsa Pepperoni — allahindlusega!

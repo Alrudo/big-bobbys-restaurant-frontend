@@ -19,8 +19,8 @@
                 <p class="card-text">{{ pos.ingredients }}</p>
               </div>
               <div class="card-footer" style="justify-content: space-between; display: flex">
-                <h5 class="card-title mt-3 ml-1">alates {{pos.price}}€</h5>
-                <b-btn class="mb-2 mr-3" style="align-self: end; width: 30%">Lisa</b-btn>
+                <h5 class="card-title mt-2 ml-1">alates {{pos.price}}€</h5>
+                <b-btn class="mb-2 mr-3" style="align-self: end; width: 30%">Vali</b-btn>
               </div>
             </div>
           </div>
