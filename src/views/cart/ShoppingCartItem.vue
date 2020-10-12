@@ -1,5 +1,5 @@
 <template>
-  <div id="repeat">
+  <div id="repeat" v-if="item.amount > 0">
     <b-row align-v="center">
       <b-col cols="1">
         <img height="80px" src="@/assets/img/pepperoni-pizza.png" alt="pepperoni pizza">
