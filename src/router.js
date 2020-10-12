@@ -12,7 +12,7 @@ export default new Router({
         },
         {
             path: '/cart',
-            component: () => import('./views/Cart')
+            component: () => import('./views/cart/Cart')
         },
         {
             path: '/contacts',
