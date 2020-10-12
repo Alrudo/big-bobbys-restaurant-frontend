@@ -1,16 +1,16 @@
 <template>
   <div id="cart">
-    <div class="container">
+    <b-container>
       <h2>Ostukorv</h2>
-      <div>
+      <div v-if="items.length===0">
         <h5>Ostukorv on tühi, lisa midagi menüüst!</h5>
       </div>
       <div class="main-body">
         <div>
-            <ShoppingCartItem
-                v-for="(item, n) in items"
-                v-bind:item="item" :key="n"
-            />
+          <ShoppingCartItem
+              v-for="(item, n) in items"
+              v-bind:item="item" :key="n"
+          />
         </div>
         <h2 id="end-sum">Kokku: {{ totalPrice }}</h2>
         <b-row style="text-align: center">
@@ -22,27 +22,30 @@
           </b-col>
         </b-row>
       </div>
-    </div>
+    </b-container>
   </div>
 </template>
 
 <script>
 
 import ShoppingCartItem from "@/views/cart/ShoppingCartItem";
+
 export default {
-name: "Order",
+  name: "Order",
   components: {ShoppingCartItem},
   data: function () {
     return {
-      items: [{amount: 1, price: 8.50,  header: "Pepperoni", info: "Väike 25 cm, traditsiooniline taigen"},
-        {amount: 2, price: 10.10, header: "Pepperoni", info: "Väike 25 cm, traditsiooniline taigen"}]
+      items: [
+        {amount: 1, price: 8.50, header: "Pepperoni", info: "Väike 25 cm, traditsiooniline taigen"},
+        {amount: 2, price: 10.10, header: "Pepperoni", info: "Väike 25 cm, traditsiooniline taigen"}
+      ]
     }
   },
   computed: {
     totalPrice: function () {
       let totalPrice = 0;
-      for (const item in this.items) {
-        totalPrice += item.price + item.amount;
+      for (let i = 0; i < this.items.length; i++) {
+        totalPrice += this.items[i].price * this.items[i].amount;
       }
       return Number(totalPrice).toFixed(2);
     }
@@ -52,23 +55,28 @@ name: "Order",
 
 <style scoped>
 #cart {
-  width: 80%;
-  margin: 80px auto;
+  width: 100%;
+  margin: 80px 0;
   font-family: 'Grandstander', cursive;
 }
+
 h2 {
   padding-bottom: 60px;
 }
+
 .main-body {
   text-align: left;
 }
+
 h4 {
   padding-bottom: 5px;
 }
+
 p {
   font-size: 1rem;
   margin-bottom: 0;
 }
+
 #end-sum {
   text-align: end;
   padding-top: 60px;

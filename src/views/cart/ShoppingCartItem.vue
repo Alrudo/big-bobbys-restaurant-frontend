@@ -1,33 +1,21 @@
 <template>
   <div id="repeat" v-if="item.amount > 0">
-    <b-row align-v="center">
-      <b-col cols="1">
-        <img height="80px" src="@/assets/img/pepperoni-pizza.png" alt="pepperoni pizza">
-      </b-col>
-      <b-col cols="3">
-        <div>
+    <b-row align-v="center" class="px-2">
+      <b-col cols="6" style="display: inline-flex">
+        <img class="mr-3" height="80px" src="@/assets/img/pepperoni-pizza.png" alt="pepperoni pizza">
+        <div class="mb-2" style="align-self: flex-end;">
           <h4>{{ item.header }}</h4>
           <p id="small">{{ item.info }}</p>
         </div>
       </b-col>
-      <b-col cols="2" offset-md="1">
-        <b-row align-v="center">
-          <b-col style="text-align: start">
-            <b-btn @click="item.amount -= 1">-</b-btn>
-          </b-col>
-          <b-col style="text-align: center">
-            <p class="big">{{ item.amount }}</p>
-          </b-col>
-          <b-col style="text-align: end">
-            <b-btn @click="item.amount += 1">+</b-btn>
-          </b-col>
-        </b-row>
-      </b-col>
-      <b-col cols="1" offset-md="1">
-        <p class="big">{{ Number(item.amount * item.price).toFixed(2) }}€</p>
-      </b-col>
-      <b-col cols="1" offset-md="2" style="text-align: end">
-        <b-btn size="lg" @click="item.amount = 0"><b-icon icon="trash"></b-icon></b-btn>
+      <b-col cols="6" style="display: inline-flex; justify-content: right">
+        <div style="display: inline-flex; border: 1px solid #878787; border-radius: 8px">
+          <b-btn variant="transparent" @click="item.amount -= 1">-</b-btn>
+          <p class="item-counter">{{ item.amount }}</p>
+          <b-btn variant="transparent" @click="item.amount += 1">+</b-btn>
+        </div>
+        <div class="mx-2" style="width:100px; text-align: right; font-size: 1.5rem">{{ Number(item.amount * item.price).toFixed(2) }}€</div>
+        <b-btn variant="danger" size="sm" @click="item.amount = 0"><b-icon icon="trash"></b-icon></b-btn>
       </b-col>
     </b-row>
   </div>
@@ -56,14 +44,16 @@ h4 {
   padding-bottom: 5px;
 }
 #small {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
 }
 p {
   font-size: 1rem;
   margin-bottom: 0;
 }
-.big {
+.item-counter {
   font-size: 1.5rem;
+  width: 40px;
+  text-align: center;
 }
 #repeat {
   border-top: 1px solid rgba(0, 0, 0, 0.2);
