@@ -2,7 +2,7 @@
   <div id="contact">
     <div class="container px-0">
       <div class="row mt-5">
-        <b-icon class="mr-3 mt-1 h3" icon="map"></b-icon>
+        <b-icon class="mr-3 mt-1 h3" icon="geo-alt"></b-icon>
         <h2>Aadress:</h2>
       </div>
       <div class="main-body">

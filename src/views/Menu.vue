@@ -18,9 +18,9 @@
                 <h5 class="card-title">{{ pos.heading }}</h5>
                 <p class="card-text">{{ pos.ingredients }}</p>
               </div>
-              <div class="card-footer" style="justify-content: space-between; display: flex">
+              <div id="footer" class="card-footer">
                 <h5 class="card-title mt-2 ml-1">alates {{pos.price}}€</h5>
-                <b-btn class="mb-2 mr-3" style="align-self: end; width: 30%">Vali</b-btn>
+                <b-btn id="choose-btn" class="mb-2 mr-3">Vali</b-btn>
               </div>
             </div>
           </div>
@@ -28,7 +28,7 @@
       </b-collapse>
     </div>
   </div>
-</template>
+  </template>
 
 <script>
 import { BIcon } from 'bootstrap-vue'
@@ -112,5 +112,13 @@ hr {
 .card-img-top {
   width: 100%;
   padding: 20px;
+}
+#footer {
+  justify-content: space-between;
+  display: flex;
+}
+#choose-btn {
+  align-self: end;
+  width: 30%;
 }
 </style>

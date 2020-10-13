@@ -10,10 +10,11 @@
           <ShoppingCartItem
               v-for="(item, n) in items"
               v-bind:item="item" :key="n"
+              @remove-item="removeItem"
           />
         </div>
-        <h2 id="end-sum">Kokku: {{ totalPrice }}</h2>
-        <b-row style="text-align: center">
+        <h2 id="end-sum">Kokku: {{ totalPrice }}€</h2>
+        <b-row class="text-center">
           <b-col>
             <b-btn size="lg" router-link to="/menu">Menu</b-btn>
           </b-col>
@@ -35,19 +36,24 @@ export default {
   components: {ShoppingCartItem},
   data: function () {
     return {
-      items: [
-        {amount: 1, price: 8.50, header: "Pepperoni", info: "Väike 25 cm, traditsiooniline taigen"},
-        {amount: 2, price: 10.10, header: "Pepperoni", info: "Väike 25 cm, traditsiooniline taigen"}
-      ]
+      //items: [
+        //{id: 0, amount: 1, price: 8.50, header: "Pepperoni", info: "Väike 25 cm, traditsiooniline taigen"},
+        //{id: 1, amount: 2, price: 10.10, header: "Pepperoni", info: "Väike 25 cm, traditsiooniline taigen"}
+      //]
     }
   },
   computed: {
     totalPrice: function () {
       let totalPrice = 0;
-      for (let i = 0; i < this.items.length; i++) {
-        totalPrice += this.items[i].price * this.items[i].amount;
+      for (const item of this.items) {
+        totalPrice += item.price * item.amount
       }
       return Number(totalPrice).toFixed(2);
+    }
+  },
+  methods: {
+    removeItem(id) {
+      this.items = this.items.filter(it => it.id !== id)
     }
   }
 }
@@ -59,24 +65,19 @@ export default {
   margin: 80px 0;
   font-family: 'Grandstander', cursive;
 }
-
 h2 {
   padding-bottom: 60px;
 }
-
 .main-body {
   text-align: left;
 }
-
 h4 {
   padding-bottom: 5px;
 }
-
 p {
   font-size: 1rem;
   margin-bottom: 0;
 }
-
 #end-sum {
   text-align: end;
   padding-top: 60px;

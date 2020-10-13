@@ -1,21 +1,23 @@
 <template>
-  <div id="repeat" v-if="item.amount > 0">
+  <div id="repeat">
     <b-row align-v="center" class="px-2">
-      <b-col cols="6" style="display: inline-flex">
+      <b-col id="first-six" cols="6">
         <img class="mr-3" height="80px" src="@/assets/img/pepperoni-pizza.png" alt="pepperoni pizza">
-        <div class="mb-2" style="align-self: flex-end;">
+        <div id="dish-info" class="mb-2">
           <h4>{{ item.header }}</h4>
           <p id="small">{{ item.info }}</p>
         </div>
       </b-col>
-      <b-col cols="6" style="display: inline-flex; justify-content: right">
-        <div style="display: inline-flex; border: 1px solid #878787; border-radius: 8px">
-          <b-btn variant="transparent" @click="item.amount -= 1">-</b-btn>
+      <b-col id="second-six" cols="6">
+        <b-btn class="ml-4" variant="danger" @click="$emit('remove-item', item.id)">
+          <b-icon icon="trash-fill"></b-icon>
+        </b-btn>
+        <div id="item-price" class="mx-2 mt-1 ">{{ totalPrice }}€</div>
+        <div id="quantity">
+          <b-btn variant="transparent" @click="Amount()">-</b-btn>
           <p class="item-counter">{{ item.amount }}</p>
           <b-btn variant="transparent" @click="item.amount += 1">+</b-btn>
         </div>
-        <div class="mx-2" style="width:100px; text-align: right; font-size: 1.5rem">{{ Number(item.amount * item.price).toFixed(2) }}€</div>
-        <b-btn variant="danger" size="sm" @click="item.amount = 0"><b-icon icon="trash"></b-icon></b-btn>
       </b-col>
     </b-row>
   </div>
@@ -32,6 +34,20 @@ name: "ShoppingCartItem",
       type: Object,
       required: true
     }
+  },
+  computed: {
+    totalPrice: function () {
+      return Number(this.item.price * this.item.amount).toFixed(2);
+    },
+  },
+  methods: {
+    Amount: function () {
+      this.item.amount--
+      if (this.item.amount <= 0) {
+        this.$emit('remove-item', this.item.id)
+      }
+      return this.item.amount
+    }
   }
 }
 </script>
@@ -43,9 +59,6 @@ h2 {
 h4 {
   padding-bottom: 5px;
 }
-#small {
-  font-size: 0.8rem;
-}
 p {
   font-size: 1rem;
   margin-bottom: 0;
@@ -55,6 +68,9 @@ p {
   width: 40px;
   text-align: center;
 }
+#small {
+  font-size: 0.8rem;
+}
 #repeat {
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   padding-top: 15px;
@@ -62,5 +78,25 @@ p {
 }
 #repeat:last-child {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+#item-price {
+  width: 100px;
+  text-align: right;
+  font-size: 1.5rem;
+}
+#first-six {
+  display: inline-flex;
+}
+#second-six {
+  display: inline-flex;
+  direction: rtl;
+}
+#quantity {
+  display: inline-flex;
+  border: 1px solid #878787;
+  border-radius: 8px;
+}
+#dish-info {
+  align-self: flex-end;
 }
 </style>
