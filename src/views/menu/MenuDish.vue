@@ -1,14 +1,14 @@
 <template>
     <div class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch">
       <div class="card">
-        <img class="card-img-top" src="@/assets/img/pepperoni-pizza.png" :alt="dish.heading">
-        <div class="card-body">
+        <img class="w-100" src="@/assets/img/pepperoni-pizza.png" :alt="dish.heading">
+        <div class="card-body px-4 pt-3">
           <h5 class="card-title">{{ dish.name }}</h5>
           <p class="card-text">{{ dish.ingredients.map(x => x.name ).join(", ") }}</p>
         </div>
-        <div id="footer" class="card-footer">
-          <h5 class="card-title mt-2 ml-1">alates {{dish.price}}€</h5>
-          <b-btn id="choose-btn" class="mb-2 mr-3" v-b-modal.modal-1 @click="$emit('fire-modal', dish)">Vali</b-btn>
+        <div class="card-footer px-4 pt-3 text-right">
+            <div class="h4">alates {{ Number(dish.price).toFixed(2) }}€</div>
+            <b-btn class="px-4" v-b-modal.modal-1 @click="$emit('fire-modal', dish)">Vali</b-btn>
         </div>
       </div>
     </div>
@@ -29,8 +29,9 @@ name: "MenuItem",
 <style scoped>
 .card {
   width: 100%;
+  max-width: 320px;
   text-align: left;
-  margin-bottom: 60px;
+  margin: 0 auto 60px;
   border: none;
   background: #f3e2cc;
 }
@@ -43,17 +44,5 @@ name: "MenuItem",
 .card-footer {
   border: none;
   background-color: rgba(0, 0, 0, 0);
-}
-.card-img-top {
-  width: 100%;
-  padding: 20px;
-}
-#footer {
-  justify-content: space-between;
-  display: flex;
-}
-#choose-btn {
-  align-self: end;
-  width: 30%;
 }
 </style>

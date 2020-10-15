@@ -8,16 +8,18 @@
           <p id="small">{{ item.info }}</p>
         </div>
       </b-col>
-      <b-col id="second-six" cols="6">
-        <b-btn class="ml-4" variant="danger" @click="$emit('remove-item', item.id)">
+      <b-col class="d-flex justify-content-end" cols="6">
+        <div>
+          <div id="quantity">
+            <b-btn variant="transparent" @click="Amount">-</b-btn>
+            <p class="item-counter">{{ item.amount }}</p>
+            <b-btn variant="transparent" @click="item.amount += 1">+</b-btn>
+          </div>
+          <div class="item-price">{{ Number(totalPrice).toFixed(2) }}€</div>
+        </div>
+        <b-btn class="ml-3" variant="danger" @click="$emit('remove-item', item.id)">
           <b-icon icon="trash-fill"></b-icon>
         </b-btn>
-        <div id="item-price" class="mx-2 mt-1 ">{{ totalPrice }}€</div>
-        <div id="quantity">
-          <b-btn variant="transparent" @click="Amount">-</b-btn>
-          <p class="item-counter">{{ item.amount }}</p>
-          <b-btn variant="transparent" @click="item.amount += 1">+</b-btn>
-        </div>
       </b-col>
     </b-row>
   </div>
@@ -79,17 +81,16 @@ p {
 #repeat:last-child {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
-#item-price {
-  width: 100px;
-  text-align: right;
-  font-size: 1.5rem;
-}
 #first-six {
   display: inline-flex;
 }
-#second-six {
-  display: inline-flex;
-  direction: rtl;
+.item-price {
+  text-align: right;
+  align-content: end;
+  vertical-align: text-bottom;
+  margin-top: 8px;
+  line-height: 1.5rem;
+  font-size: 1.5rem;
 }
 #quantity {
   display: inline-flex;

@@ -13,8 +13,15 @@
         </div>
         <div class="col-6">
           <b-row>
-            <h2 class="mt-3">{{ modal.item.name }}</h2>
-            <p class="mb-3">{{ modal.item.ingredients.map(x => x.name).join(", ") }}</p>
+            <div class="h2">{{ modal.item.name }}</div>
+          </b-row>
+          <b-row>
+            <p>{{ modal.item.ingredients.map(x => x.name).join(", ") }}</p>
+          </b-row>
+          <b-row>
+            <p>Weight: {{ modal.item.weight*1000 }}g</p>
+          </b-row>
+          <b-row>
             <div id="size">
               <b-btn :variant="variant.buttons.left.variant" @click="activate(variant.buttons.left)" id="left-size">
                 väike

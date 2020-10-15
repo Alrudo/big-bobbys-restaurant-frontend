@@ -13,7 +13,7 @@
               @remove-item="removeItem"
           />
         </div>
-        <h2 id="end-sum">Kokku: {{ totalPrice }}€</h2>
+        <h2 id="end-sum">Kokku: {{ Number(totalPrice).toFixed(2) }}€</h2>
         <b-row class="text-center">
           <b-col>
             <b-btn size="lg" router-link to="/menu">Menu</b-btn>
