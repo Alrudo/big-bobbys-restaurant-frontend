@@ -22,6 +22,15 @@
 <script>
 export default {
   name: 'App',
+  data: function () {
+    return {
+      items: [
+        {
+          menu: []
+        }
+      ]
+    }
+  }
 }
 </script>
 

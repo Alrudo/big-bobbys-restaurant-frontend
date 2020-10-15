@@ -8,8 +8,8 @@
       <div class="main-body">
         <div>
           <ShoppingCartItem
-              v-for="(item, n) in items"
-              v-bind:item="item" :key="n"
+              v-for="(item, n) in items" :key="n"
+              v-bind:item="item"
               @remove-item="removeItem"
           />
         </div>
@@ -36,10 +36,10 @@ export default {
   components: {ShoppingCartItem},
   data: function () {
     return {
-      //items: [
-        //{id: 0, amount: 1, price: 8.50, header: "Pepperoni", info: "Väike 25 cm, traditsiooniline taigen"},
-        //{id: 1, amount: 2, price: 10.10, header: "Pepperoni", info: "Väike 25 cm, traditsiooniline taigen"}
-      //]
+      items: [
+        {id: 0, amount: 1, price: 8.50, header: "Pepperoni", info: "Väike 25 cm, traditsiooniline taigen"},
+        {id: 1, amount: 2, price: 10.10, header: "Pepperoni", info: "Väike 25 cm, traditsiooniline taigen"}
+      ]
     }
   },
   computed: {

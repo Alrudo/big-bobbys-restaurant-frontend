@@ -14,7 +14,7 @@
         </b-btn>
         <div id="item-price" class="mx-2 mt-1 ">{{ totalPrice }}€</div>
         <div id="quantity">
-          <b-btn variant="transparent" @click="Amount()">-</b-btn>
+          <b-btn variant="transparent" @click="Amount">-</b-btn>
           <p class="item-counter">{{ item.amount }}</p>
           <b-btn variant="transparent" @click="item.amount += 1">+</b-btn>
         </div>

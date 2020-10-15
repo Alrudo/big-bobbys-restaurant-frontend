@@ -24,7 +24,7 @@ export default new Router({
         },
         {
             path: '/menu',
-            component: () => import('./views/Menu')
+            component: () => import('./views/menu/Menu')
         },
         {
             path: '/offers',
