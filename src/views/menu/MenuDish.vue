@@ -3,12 +3,12 @@
       <div class="card">
         <img class="card-img-top" src="@/assets/img/pepperoni-pizza.png" :alt="dish.heading">
         <div class="card-body">
-          <h5 class="card-title">{{ dish.heading }}</h5>
-          <p class="card-text">{{ dish.ingredients }}</p>
+          <h5 class="card-title">{{ dish.name }}</h5>
+          <p class="card-text">{{ dish.ingredients.map(x => x.name ).join(", ") }}</p>
         </div>
         <div id="footer" class="card-footer">
           <h5 class="card-title mt-2 ml-1">alates {{dish.price}}€</h5>
-          <b-btn id="choose-btn" class="mb-2 mr-3" v-b-modal.modal-1 @click="$emit('fire-modal', dish.id)">Vali</b-btn>
+          <b-btn id="choose-btn" class="mb-2 mr-3" v-b-modal.modal-1 @click="$emit('fire-modal', dish)">Vali</b-btn>
         </div>
       </div>
     </div>

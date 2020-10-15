@@ -1,20 +1,20 @@
 <template>
   <div id="menu">
     <MenuDropdown
-        v-for="dropdown in menu_items" :key="dropdown.heading"
-        v-bind:dropdown="dropdown"
+        heading="Food"
+        :dishes="menuItems"
         @fire-modal="fireModal"
     />
 
-    <b-modal id="modal-1" size="lg" content-class="shadow"  centered hide-footer hide-header>
+    <b-modal id="modal-1" size="lg" content-class="shadow"  centered hide-footer hide-header v-if="modal.item !== null">
       <div class="row">
         <div class="col-6">
           <img class="my-2" src="@/assets/img/pepperoni-pizza.png" alt="pepperoni pizza">
         </div>
         <div class="col-6">
           <b-row>
-            <h2 class="mt-3">{{ modal.item.heading }}</h2>
-            <p class="mb-3">{{ modal.item.ingredients }}</p>
+            <h2 class="mt-3">{{ modal.item.name }}</h2>
+            <p class="mb-3">{{ modal.item.ingredients.map(x => x.name).join(", ") }}</p>
             <div id="size">
               <b-btn :variant="variant.buttons.left.variant" @click="activate(variant.buttons.left)" id="left-size">
                 väike
@@ -35,12 +35,15 @@
 </template>
 
 <script>
+// import KitchenApi from '@/KitchenApi'
 import MenuDropdown from "@/views/menu/MenuCollapse";
+import KitchenApi from "@/KitchenApi";
 
 export default {
   name: "Menu",
   data: function () {
     return {
+      menuItems: [],
       menu_items: [
         {
           id: 0,
@@ -86,7 +89,7 @@ export default {
         }
       ],
       modal: {
-        item: {}
+        item: null
       },
       variant: {
         buttons: {
@@ -123,6 +126,16 @@ export default {
       }
       return Number(price).toFixed(2);
     }
+  },
+  created() {
+    KitchenApi.getMenu().then((resp) => {
+      this.menuItems = resp.data
+      console.log(this.menuItems)
+    }).catch(() => {
+      this.$bvModal.msgBoxOk("Failed to retrieve data", {
+        title: 'Data error'
+      })
+    })
   }
 }
 </script>
@@ -139,7 +152,7 @@ h2 {
 #modal-1 {
   font-family: 'Grandstander', cursive;
 }
-.modal-content{
+#modal-1 .modal-content{
   background-color: #f3e2cc; font-family: 'Grandstander', cursive; padding: 25px; color: #2c3e50; border-radius: 12px
 }
 
