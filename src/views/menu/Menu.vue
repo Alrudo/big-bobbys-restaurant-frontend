@@ -6,12 +6,11 @@
         @fire-modal="fireModal"
     />
 
-    <b-modal id="modal-1" size="lg" centered hide-footer hide-header>
-      <div class="row" style="background-color: #f3e2cc; font-family: 'Grandstander', cursive; margin: -25px -25px -25px -25px; color: #2c3e50; border-radius: 20px">
-          <div class="col-5">
-            <img class="my-2" src="@/assets/img/pepperoni-pizza.png" alt="pepperoni pizza">
-          </div>
-          <div class="col-1"></div>
+    <b-modal id="modal-1" size="lg" content-class="shadow"  centered hide-footer hide-header>
+      <div class="row">
+        <div class="col-6">
+          <img class="my-2" src="@/assets/img/pepperoni-pizza.png" alt="pepperoni pizza">
+        </div>
         <div class="col-6">
           <b-row>
             <h2 class="mt-3">{{ modal.item.heading }}</h2>
@@ -29,11 +28,11 @@
             </div>
             <b-btn id="bottom-content">Lisa ostukorvi hinnaga {{ countPrice }}€</b-btn>
           </b-row>
-          </div>
+        </div>
       </div>
     </b-modal>
   </div>
-  </template>
+</template>
 
 <script>
 import MenuDropdown from "@/views/menu/MenuCollapse";
@@ -128,7 +127,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 #menu {
   width: 80%;
   margin: 80px auto;
@@ -138,9 +137,12 @@ h2 {
   padding-bottom: 15px;
 }
 #modal-1 {
-  background-color: #f3e2cc;
   font-family: 'Grandstander', cursive;
 }
+.modal-content{
+  background-color: #f3e2cc; font-family: 'Grandstander', cursive; padding: 25px; color: #2c3e50; border-radius: 12px
+}
+
 #bottom-content {
   position: absolute;
   bottom: 15px;
