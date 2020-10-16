@@ -16,7 +16,7 @@
 
 <script>
 export default {
-name: "MenuItem",
+name: "MenuDish",
   props: {
     dish: {
       type: Object,

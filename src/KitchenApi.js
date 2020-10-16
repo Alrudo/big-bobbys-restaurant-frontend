@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default {
-  url: 'http://localhost:8090',
+  url: 'https://bigbobbyapi.deathcry.ru',
   getMenu () {
     return axios.get(this.url + '/menu')
   }

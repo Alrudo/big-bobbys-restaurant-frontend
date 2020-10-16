@@ -6,30 +6,44 @@
         @fire-modal="fireModal"
     />
 
-    <b-modal id="modal-1" size="lg" content-class="shadow"  centered hide-footer hide-header v-if="modal.item !== null">
+    <b-modal
+        id="modal-1"
+        size="lg"
+        content-class="shadow"
+        centered
+        hide-footer
+        hide-header
+        v-if="modal.item !== null"
+        @hide="hideModal"
+        @show="stopTimeouts"
+    >
       <div class="row">
         <div class="col-6">
           <img class="my-2" src="@/assets/img/pepperoni-pizza.png" alt="pepperoni pizza">
         </div>
         <div class="col-6">
+            <b-btn variant="secondary" @click="hideModal" class="shadow-none" size="sm" id="topRightCorner"><b-icon class="mt-1" icon="x-circle-fill"></b-icon></b-btn>
           <b-row>
             <div class="h2">{{ modal.item.name }}</div>
           </b-row>
           <b-row>
-            <p>{{ modal.item.ingredients.map(x => x.name).join(", ") }}</p>
+            <p>{{modal.item.ingredients.map(x => x.name).join(", ") }}</p>
           </b-row>
           <b-row>
-            <p>Weight: {{ modal.item.weight*1000 }}g</p>
+            <p>Allergens: {{ getAllergens }}</p>
+          </b-row>
+          <b-row>
+            <p>Weight: {{ countWeight }}g</p>
           </b-row>
           <b-row>
             <div id="size">
-              <b-btn :variant="variant.buttons.left.variant" @click="activate(variant.buttons.left)" id="left-size">
+              <b-btn class="shadow-none" :variant="variant.buttons.left.variant" @click="activate(variant.buttons.left)" id="left-size">
                 väike
               </b-btn>
-              <b-btn :variant="variant.buttons.medium.variant" @click="activate(variant.buttons.medium)" id="middle">
+              <b-btn class="shadow-none" :variant="variant.buttons.medium.variant" @click="activate(variant.buttons.medium)" id="middle">
                 keskmine
               </b-btn>
-              <b-btn :variant="variant.buttons.right.variant" @click="activate(variant.buttons.right)" id="right-size">
+              <b-btn class="shadow-none" :variant="variant.buttons.right.variant" @click="activate(variant.buttons.right)" id="right-size">
                 suur
               </b-btn>
             </div>
@@ -42,7 +56,6 @@
 </template>
 
 <script>
-// import KitchenApi from '@/KitchenApi'
 import MenuDropdown from "@/views/menu/MenuCollapse";
 import KitchenApi from "@/KitchenApi";
 
@@ -51,50 +64,6 @@ export default {
   data: function () {
     return {
       menuItems: [],
-      menu_items: [
-        {
-          id: 0,
-          heading: "Pitsad",
-          state: true,
-          pos: [
-            {
-              id: 0,
-              heading: "Pepperoni",
-              ingredients: "Mozzarella juust, pizza-kaste, pepperoni vorst",
-              price: "9.30"
-            }, {
-              id: 1,
-              heading: "Carbonara",
-              ingredients: "Juustukaste, küüslauk, mozzarella juust, punane sibul, riivitud parmesani juust, cheddar" +
-                  " juust, peekon, oregano, kirsstomatid",
-              price: "9.30"
-            }, {
-              id: 2,
-              heading: "Spicy",
-              ingredients: "Chilli kaste, jalapeno, jahimehe vorstikesed, pepperoni, pizza-kaste, mozzarella juust",
-              price: "8.30"
-            }, {
-              id: 4,
-              heading: "Pizza-kook",
-              ingredients: "Ananassid, pohlad, kondenspiim",
-              price: "7.30"
-            }
-          ]
-        },
-        {
-          id: 1,
-          heading: "Pearoad",
-          state: true,
-          pos: [
-            {
-              id: 0,
-              heading: "Double Pepperoni",
-              ingredients: "Mozzarella juust, pizza-kaste, pepperoni vorst",
-              price: "9.30"
-            }
-          ]
-        }
-      ],
       modal: {
         item: null
       },
@@ -104,7 +73,8 @@ export default {
           medium: {variant: 'transparent'},
           right: {variant: 'transparent'}
         }
-      }
+      },
+      timeout: null
     }
   },
   components: {
@@ -119,6 +89,19 @@ export default {
       this.variant.buttons.medium.variant = 'transparent';
       this.variant.buttons.right.variant = 'transparent';
       btn.variant = 'secondary'
+    },
+    hideModal() {
+      this.timeout = setTimeout(this.resetVariants, 200)
+      this.$bvModal.hide('modal-1')
+    },
+    resetVariants() {
+        this.variant.buttons.left.variant = 'secondary';
+        this.variant.buttons.medium.variant = 'transparent';
+        this.variant.buttons.right.variant = 'transparent';
+        console.log(this.variant)
+    },
+    stopTimeouts() {
+      clearTimeout(this.timeout)
     }
   },
   computed: {
@@ -126,18 +109,33 @@ export default {
       let price = Number(this.modal.item.price)
       if (this.variant.buttons.medium.variant === 'secondary') {
         price += 2.1
-        console.log(price)
       } else if (this.variant.buttons.right.variant === 'secondary') {
         price += 4.20
-        console.log(price)
       }
       return Number(price).toFixed(2);
+    },
+    countWeight: function () {
+      let weight = this.modal.item.weight * 1000
+      if (this.variant.buttons.medium.variant === 'secondary') {
+        weight += 100
+      } else if (this.variant.buttons.right.variant === 'secondary') {
+        weight += 200
+      }
+      return weight
+    },
+    getAllergens: function () {
+      let allergens = Array.from(
+          new Set(this.modal.item.ingredients.map(x => x.allergens).join(" ").split(" "))
+      ).filter(it => it !== "")
+      if (allergens.length > 0) {
+        return allergens.join(", ")
+      }
+      return "None"
     }
   },
   created() {
     KitchenApi.getMenu().then((resp) => {
       this.menuItems = resp.data
-      console.log(this.menuItems)
     }).catch(() => {
       this.$bvModal.msgBoxOk("Failed to retrieve data", {
         title: 'Data error'
@@ -156,11 +154,12 @@ export default {
 h2 {
   padding-bottom: 15px;
 }
-#modal-1 {
-  font-family: 'Grandstander', cursive;
-}
 #modal-1 .modal-content{
-  background-color: #f3e2cc; font-family: 'Grandstander', cursive; padding: 25px; color: #2c3e50; border-radius: 12px
+  background-color: #f3e2cc;
+  font-family: 'Grandstander', cursive;
+  padding: 25px;
+  color: #2c3e50;
+  border-radius: 12px;
 }
 
 #bottom-content {
@@ -183,5 +182,10 @@ h2 {
 }
 #middle {
   border-radius: 0;
+}
+#topRightCorner {
+  position:absolute;
+  top: 0;
+  right: 0;
 }
 </style>

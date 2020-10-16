@@ -11,11 +11,11 @@
       <b-col class="d-flex justify-content-end" cols="6">
         <div>
           <div id="quantity">
-            <b-btn variant="transparent" @click="Amount">-</b-btn>
+            <b-btn variant="transparent" @click="amount">-</b-btn>
             <p class="item-counter">{{ item.amount }}</p>
             <b-btn variant="transparent" @click="item.amount += 1">+</b-btn>
           </div>
-          <div class="item-price">{{ Number(totalPrice).toFixed(2) }}€</div>
+          <div class="item-price">{{ totalPrice }}€</div>
         </div>
         <b-btn class="ml-3" variant="danger" @click="$emit('remove-item', item.id)">
           <b-icon icon="trash-fill"></b-icon>
@@ -43,7 +43,7 @@ name: "ShoppingCartItem",
     },
   },
   methods: {
-    Amount: function () {
+    amount: function () {
       this.item.amount--
       if (this.item.amount <= 0) {
         this.$emit('remove-item', this.item.id)

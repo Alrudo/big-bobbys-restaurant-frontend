@@ -3,12 +3,12 @@
     <div class="row mt-5">
       <h2>{{ heading }}</h2>
       <div class="ml-3 h2">
-        <b-icon icon="chevron-up" v-if="dropdownState" @click="dropdownState=false"></b-icon>
-        <b-icon icon="chevron-down" v-if="!dropdownState" @click="dropdownState=true"></b-icon>
+        <b-icon icon="chevron-up" v-if="collapseState" @click="collapseState=false"></b-icon>
+        <b-icon icon="chevron-down" v-if="!collapseState" @click="collapseState=true"></b-icon>
       </div>
     </div>
     <hr class="my-0 mb-3">
-    <b-collapse id="collapse-1" v-model="dropdownState" class="mt-3">
+    <b-collapse id="collapse-1" v-model="collapseState" class="mt-3">
       <div class="row">
         <MenuDish
             v-for="dish in dishes" :key="dish.name"
@@ -25,10 +25,10 @@ import MenuDish from "@/views/menu/MenuDish";
 import {BIcon} from "bootstrap-vue";
 
 export default {
-  name: "MenuDropdown",
+  name: "MenuCollapse",
   data: function () {
     return {
-      dropdownState: true
+      collapseState: true
     }
   },
   components: {
