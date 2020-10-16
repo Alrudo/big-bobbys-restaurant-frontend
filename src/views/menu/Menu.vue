@@ -22,7 +22,9 @@
           <img class="my-2" src="@/assets/img/pepperoni-pizza.png" alt="pepperoni pizza">
         </div>
         <div class="col-6">
-            <b-btn variant="secondary" @click="hideModal" class="shadow-none" size="sm" id="topRightCorner"><b-icon class="mt-1" icon="x-circle-fill"></b-icon></b-btn>
+          <b-btn variant="secondary" @click="hideModal" class="shadow-none" size="sm" id="topRightCorner">
+            <b-icon class="mt-1" icon="x-circle-fill"></b-icon>
+          </b-btn>
           <b-row>
             <div class="h2">{{ modal.item.name }}</div>
           </b-row>
@@ -47,7 +49,9 @@
                 suur
               </b-btn>
             </div>
-            <b-btn id="bottom-content">Lisa ostukorvi hinnaga {{ countPrice }}€</b-btn>
+          </b-row>
+          <b-row class="justify-content-end">
+            <b-btn id="bottom-content" @click="addShoppingItem">Lisa ostukorvi hinnaga {{ countPrice }}€</b-btn>
           </b-row>
         </div>
       </div>
@@ -82,7 +86,7 @@ export default {
   },
   methods: {
     fireModal(dish) {
-      this.modal.item = dish
+      this.modal.item = JSON.parse(JSON.stringify(dish))
     },
     activate(btn) {
       this.variant.buttons.left.variant = 'transparent';
@@ -98,10 +102,17 @@ export default {
         this.variant.buttons.left.variant = 'secondary';
         this.variant.buttons.medium.variant = 'transparent';
         this.variant.buttons.right.variant = 'transparent';
-        console.log(this.variant)
     },
     stopTimeouts() {
       clearTimeout(this.timeout)
+    },
+    addShoppingItem() {
+      this.modal.item["weight"] = this.countWeight
+      this.modal.item["price"] = this.countPrice
+      this.modal.item["amount"] = 1
+      this.modal.item["ingredients"] = this.modal.item.ingredients.map(x => x.name).join(", ")
+      this.$store.commit("addShoppingItem", { item: this.modal.item})
+      this.hideModal()
     }
   },
   computed: {
@@ -163,9 +174,8 @@ h2 {
 }
 
 #bottom-content {
-  position: absolute;
-  bottom: 15px;
-  left: 0;
+  display: inline-flex;
+  margin-top: 20px;
 }
 #size {
   display: inline-flex;

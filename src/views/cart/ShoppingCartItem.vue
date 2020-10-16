@@ -4,8 +4,8 @@
       <b-col id="first-six" cols="6">
         <img class="mr-3" height="80px" src="@/assets/img/pepperoni-pizza.png" alt="pepperoni pizza">
         <div id="dish-info" class="mb-2">
-          <h4>{{ item.header }}</h4>
-          <p id="small">{{ item.info }}</p>
+          <h4>{{ item.name }}</h4>
+          <p id="small">{{ item.ingredients }}</p>
         </div>
       </b-col>
       <b-col class="d-flex justify-content-end" cols="6">
@@ -17,7 +17,7 @@
           </div>
           <div class="item-price">{{ totalPrice }}€</div>
         </div>
-        <b-btn class="ml-3" variant="danger" @click="$emit('remove-item', item.id)">
+        <b-btn class="ml-3" variant="danger" @click="$emit('remove-item', id)">
           <b-icon icon="trash-fill"></b-icon>
         </b-btn>
       </b-col>
@@ -32,6 +32,10 @@ name: "ShoppingCartItem",
     return {}
   },
   props: {
+    id: {
+      type: Number,
+      required: true
+    },
     item: {
       type: Object,
       required: true
