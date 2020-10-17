@@ -17,10 +17,10 @@
         <h2 id="end-sum">Kokku: {{ Number(totalPrice).toFixed(2) }}€</h2>
         <b-row class="text-center">
           <b-col>
-            <b-btn size="lg" router-link to="/menu">Menu</b-btn>
+            <b-btn size="lg" router-link to="/menu">Menüü</b-btn>
           </b-col>
           <b-col>
-            <b-btn size="lg">Proceed</b-btn>
+            <b-btn size="lg">Esita tellimus</b-btn>
           </b-col>
         </b-row>
       </div>
