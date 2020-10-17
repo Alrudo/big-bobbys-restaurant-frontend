@@ -1,7 +1,7 @@
 <template>
   <div id="menu">
     <MenuDropdown
-        heading="Food"
+        heading="Pearoad"
         :dishes="menuItems"
         @fire-modal="fireModal"
     />
