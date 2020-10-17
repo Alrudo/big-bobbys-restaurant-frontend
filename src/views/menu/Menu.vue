@@ -29,7 +29,7 @@
             <div class="h2">{{ modal.item.name }}</div>
           </b-row>
           <b-row>
-            <p>{{modal.item.ingredients.map(x => x.name).join(", ") }}</p>
+            <p>{{ modal.item.ingredients.map(x => x.name).join(", ") }}</p>
           </b-row>
           <b-row>
             <p>Allergens: {{ getAllergens }}</p>
@@ -61,7 +61,7 @@
 
 <script>
 import MenuDropdown from "@/views/menu/MenuCollapse";
-import KitchenApi from "@/KitchenApi";
+import KitchenApi from "@/APIs/KitchenApi";
 
 export default {
   name: "Menu",
@@ -138,6 +138,7 @@ export default {
       let allergens = Array.from(
           new Set(this.modal.item.ingredients.map(x => x.allergens).join(" ").split(" "))
       ).filter(it => it !== "")
+      console.log(this.modal.item.ingredients)
       if (allergens.length > 0) {
         return allergens.join(", ")
       }

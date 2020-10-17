@@ -1,16 +1,17 @@
 <template>
-  <div id="repeat">
+  <div class="repeat">
     <b-row align-v="center" class="px-2">
-      <b-col id="first-six" cols="6">
+      <b-col class="first-six" cols="6">
         <img class="mr-3" height="80px" src="@/assets/img/pepperoni-pizza.png" alt="pepperoni pizza">
-        <div id="dish-info" class="mb-2">
+        <div class="mb-2 dish-info">
           <h4>{{ item.name }}</h4>
-          <p id="small">{{ item.ingredients }}</p>
+          <p class="small">{{ item.ingredients }}
+          <p class="small">weight: {{ item.weight }}g</p>
         </div>
       </b-col>
       <b-col class="d-flex justify-content-end" cols="6">
         <div>
-          <div id="quantity">
+          <div class="quantity">
             <b-btn variant="transparent" @click="amount">-</b-btn>
             <p class="item-counter">{{ item.amount }}</p>
             <b-btn variant="transparent" @click="item.amount += 1">+</b-btn>
@@ -48,9 +49,10 @@ name: "ShoppingCartItem",
   },
   methods: {
     amount: function () {
+      console.log(this.item.amount)
       this.item.amount--
       if (this.item.amount <= 0) {
-        this.$emit('remove-item', this.item.id)
+        this.$emit('remove-item', this.id)
       }
       return this.item.amount
     }
@@ -74,18 +76,15 @@ p {
   width: 40px;
   text-align: center;
 }
-#small {
-  font-size: 0.8rem;
-}
-#repeat {
+.repeat {
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   padding-top: 15px;
   padding-bottom: 15px;
 }
-#repeat:last-child {
+.repeat:last-child {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
-#first-six {
+.first-six {
   display: inline-flex;
 }
 .item-price {
@@ -96,12 +95,15 @@ p {
   line-height: 1.5rem;
   font-size: 1.5rem;
 }
-#quantity {
+.quantity {
   display: inline-flex;
   border: 1px solid #878787;
   border-radius: 8px;
 }
-#dish-info {
+.dish-info {
   align-self: flex-end;
+}
+.small {
+  font-size: 0.8rem;
 }
 </style>
