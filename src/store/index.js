@@ -22,6 +22,11 @@ export default new Vuex.Store({
         addShoppingItem(state, {item}) {
             state.shoppingCart.push(item)
             Vue.cookie.set("shopping_cart", JSON.stringify(state.shoppingCart))
+            console.log(item)
+        },
+        changeShoppingItemQuantity(state, {id, amount}) {
+            state.shoppingCart[id]['amount'] = amount
+            Vue.cookie.set('shopping_cart', JSON.stringify(state.shoppingCart))
         },
         removeShoppingItem(state, {id}) {
             Vue.delete(state.shoppingCart, id)

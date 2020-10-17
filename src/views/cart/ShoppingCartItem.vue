@@ -12,9 +12,9 @@
       <b-col class="d-flex justify-content-end" cols="6">
         <div>
           <div class="quantity">
-            <b-btn variant="transparent" @click="amount">-</b-btn>
+            <b-btn variant="transparent" @click="decreaseAmount">-</b-btn>
             <p class="item-counter">{{ item.amount }}</p>
-            <b-btn variant="transparent" @click="item.amount += 1">+</b-btn>
+            <b-btn variant="transparent" @click="increaseAmount">+</b-btn>
           </div>
           <div class="item-price">{{ totalPrice }}€</div>
         </div>
@@ -48,12 +48,20 @@ name: "ShoppingCartItem",
     },
   },
   methods: {
-    amount: function () {
+    decreaseAmount: function () {
       this.item.amount--
+      let id = this.id
+      let amount = this.item.amount
+      this.$store.commit("changeShoppingItemQuantity", {id, amount})
       if (this.item.amount <= 0) {
         this.$emit('remove-item', this.id)
       }
-      return this.item.amount
+    },
+    increaseAmount: function () {
+      this.item.amount++
+      let id = this.id
+      let amount = this.item.amount
+      this.$store.commit("changeShoppingItemQuantity", {id, amount})
     }
   }
 }
