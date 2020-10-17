@@ -8,27 +8,27 @@ export default new Router({
     routes: [
         {
             path: '/',
-            component: () => import('./views/Home')
+            component: () => import('../views/Home')
         },
         {
             path: '/cart',
-            component: () => import('./views/cart/Cart')
+            component: () => import('../views/cart/Cart')
         },
         {
             path: '/contacts',
-            component: () => import('./views/Contacts')
+            component: () => import('../views/Contacts')
         },
         {
             path: '/gallery',
-            component: () => import('./views/Gallery')
+            component: () => import('../views/Gallery')
         },
         {
             path: '/menu',
-            component: () => import('./views/Menu')
+            component: () => import('../views/menu/Menu')
         },
         {
             path: '/offers',
-            component: () => import('./views/Offers')
+            component: () => import('../views/Offers')
         }
     ]
 })

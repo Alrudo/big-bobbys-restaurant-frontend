@@ -1,23 +1,26 @@
 <template>
-  <div id="repeat">
+  <div class="repeat">
     <b-row align-v="center" class="px-2">
-      <b-col id="first-six" cols="6">
+      <b-col class="first-six" cols="6">
         <img class="mr-3" height="80px" src="@/assets/img/pepperoni-pizza.png" alt="pepperoni pizza">
-        <div id="dish-info" class="mb-2">
-          <h4>{{ item.header }}</h4>
-          <p id="small">{{ item.info }}</p>
+        <div class="mb-2 dish-info">
+          <h4>{{ item.name }}</h4>
+          <p class="small">{{ item.ingredients }}
+          <p class="small">weight: {{ item.weight }}g</p>
         </div>
       </b-col>
-      <b-col id="second-six" cols="6">
-        <b-btn class="ml-4" variant="danger" @click="$emit('remove-item', item.id)">
+      <b-col class="d-flex justify-content-end" cols="6">
+        <div>
+          <div class="quantity">
+            <b-btn variant="transparent" @click="decreaseAmount">-</b-btn>
+            <p class="item-counter">{{ item.amount }}</p>
+            <b-btn variant="transparent" @click="increaseAmount">+</b-btn>
+          </div>
+          <div class="item-price">{{ totalPrice }}€</div>
+        </div>
+        <b-btn class="ml-3" variant="danger" @click="$emit('remove-item', id)">
           <b-icon icon="trash-fill"></b-icon>
         </b-btn>
-        <div id="item-price" class="mx-2 mt-1 ">{{ totalPrice }}€</div>
-        <div id="quantity">
-          <b-btn variant="transparent" @click="Amount()">-</b-btn>
-          <p class="item-counter">{{ item.amount }}</p>
-          <b-btn variant="transparent" @click="item.amount += 1">+</b-btn>
-        </div>
       </b-col>
     </b-row>
   </div>
@@ -30,6 +33,10 @@ name: "ShoppingCartItem",
     return {}
   },
   props: {
+    id: {
+      type: Number,
+      required: true
+    },
     item: {
       type: Object,
       required: true
@@ -41,12 +48,20 @@ name: "ShoppingCartItem",
     },
   },
   methods: {
-    Amount: function () {
+    decreaseAmount: function () {
       this.item.amount--
+      let id = this.id
+      let amount = this.item.amount
+      this.$store.commit("changeShoppingItemQuantity", {id, amount})
       if (this.item.amount <= 0) {
-        this.$emit('remove-item', this.item.id)
+        this.$emit('remove-item', this.id)
       }
-      return this.item.amount
+    },
+    increaseAmount: function () {
+      this.item.amount++
+      let id = this.id
+      let amount = this.item.amount
+      this.$store.commit("changeShoppingItemQuantity", {id, amount})
     }
   }
 }
@@ -68,35 +83,34 @@ p {
   width: 40px;
   text-align: center;
 }
-#small {
-  font-size: 0.8rem;
-}
-#repeat {
+.repeat {
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   padding-top: 15px;
   padding-bottom: 15px;
 }
-#repeat:last-child {
+.repeat:last-child {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
-#item-price {
-  width: 100px;
+.first-six {
+  display: inline-flex;
+}
+.item-price {
   text-align: right;
+  align-content: end;
+  vertical-align: text-bottom;
+  margin-top: 8px;
+  line-height: 1.5rem;
   font-size: 1.5rem;
 }
-#first-six {
-  display: inline-flex;
-}
-#second-six {
-  display: inline-flex;
-  direction: rtl;
-}
-#quantity {
+.quantity {
   display: inline-flex;
   border: 1px solid #878787;
   border-radius: 8px;
 }
-#dish-info {
+.dish-info {
   align-self: flex-end;
+}
+.small {
+  font-size: 0.8rem;
 }
 </style>

@@ -8,12 +8,13 @@
       <div class="main-body">
         <div>
           <ShoppingCartItem
-              v-for="(item, n) in items"
-              v-bind:item="item" :key="n"
+              v-for="(item, n) in items" :key="n"
+              :id="n"
+              :item="item"
               @remove-item="removeItem"
           />
         </div>
-        <h2 id="end-sum">Kokku: {{ totalPrice }}€</h2>
+        <h2 id="end-sum">Kokku: {{ Number(totalPrice).toFixed(2) }}€</h2>
         <b-row class="text-center">
           <b-col>
             <b-btn size="lg" router-link to="/menu">Menu</b-btn>
@@ -36,10 +37,7 @@ export default {
   components: {ShoppingCartItem},
   data: function () {
     return {
-      //items: [
-        //{id: 0, amount: 1, price: 8.50, header: "Pepperoni", info: "Väike 25 cm, traditsiooniline taigen"},
-        //{id: 1, amount: 2, price: 10.10, header: "Pepperoni", info: "Väike 25 cm, traditsiooniline taigen"}
-      //]
+      items: []
     }
   },
   computed: {
@@ -53,8 +51,12 @@ export default {
   },
   methods: {
     removeItem(id) {
-      this.items = this.items.filter(it => it.id !== id)
+      this.$store.commit("removeShoppingItem", {id})
+      this.items = this.$store.getters.getShoppingCart
     }
+  },
+  created() {
+    this.items = this.$store.getters.getShoppingCart
   }
 }
 </script>
