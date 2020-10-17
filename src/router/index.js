@@ -18,10 +18,10 @@ export default new Router({
             path: '/contacts',
             component: () => import('../views/Contacts')
         },
-        {
-            path: '/gallery',
-            component: () => import('../views/Gallery')
-        },
+        // {
+        //     path: '/gallery',
+        //     component: () => import('../views/Gallery')
+        // },
         {
             path: '/menu',
             component: () => import('../views/menu/Menu')

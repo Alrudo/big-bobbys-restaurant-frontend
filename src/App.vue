@@ -10,7 +10,7 @@
           <b-nav-item router-link to="/menu">Menüü</b-nav-item>
           <b-nav-item router-link to="/cart">Ostukorv</b-nav-item>
           <b-nav-item router-link to="/offers">Pakkumised</b-nav-item>
-          <b-nav-item router-link to="/gallery">Galerii</b-nav-item>
+          <!--<b-nav-item router-link to="/gallery">Galerii</b-nav-item>-->
           <b-nav-item router-link to="/contacts">Kontakt</b-nav-item>
         </b-navbar-nav>
       </b-navbar>
