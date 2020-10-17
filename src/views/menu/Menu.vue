@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     fireModal(dish) {
-      this.modal.item = JSON.parse(JSON.stringify(dish))
+      this.modal.item = dish
     },
     activate(btn) {
       this.variant.buttons.left.variant = 'transparent';
@@ -107,11 +107,12 @@ export default {
       clearTimeout(this.timeout)
     },
     addShoppingItem() {
-      this.modal.item["weight"] = this.countWeight
-      this.modal.item["price"] = this.countPrice
-      this.modal.item["amount"] = 1
-      this.modal.item["ingredients"] = this.modal.item.ingredients.map(x => x.name).join(", ")
-      this.$store.commit("addShoppingItem", { item: this.modal.item})
+      let newItem = JSON.parse(JSON.stringify(this.modal.item))
+      newItem["weight"] = this.countWeight
+      newItem["price"] = this.countPrice
+      newItem["amount"] = 1
+      newItem["ingredients"] = this.modal.item.ingredients.map(x => x.name).join(", ")
+      this.$store.commit("addShoppingItem", { item: newItem})
       this.hideModal()
     }
   },
@@ -138,7 +139,6 @@ export default {
       let allergens = Array.from(
           new Set(this.modal.item.ingredients.map(x => x.allergens).join(" ").split(" "))
       ).filter(it => it !== "")
-      console.log(this.modal.item.ingredients)
       if (allergens.length > 0) {
         return allergens.join(", ")
       }

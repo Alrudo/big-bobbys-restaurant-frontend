@@ -24,7 +24,6 @@ export default new Vuex.Store({
             Vue.cookie.set("shopping_cart", JSON.stringify(state.shoppingCart))
         },
         removeShoppingItem(state, {id}) {
-            console.log(id)
             Vue.delete(state.shoppingCart, id)
             Vue.cookie.set("shopping_cart", JSON.stringify(state.shoppingCart))
         }

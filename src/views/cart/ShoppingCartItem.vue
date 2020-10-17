@@ -49,7 +49,6 @@ name: "ShoppingCartItem",
   },
   methods: {
     amount: function () {
-      console.log(this.item.amount)
       this.item.amount--
       if (this.item.amount <= 0) {
         this.$emit('remove-item', this.id)
