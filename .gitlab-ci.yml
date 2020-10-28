@@ -5,9 +5,9 @@ stages:
 build:
   stage: build
   script:
-    - sh /home/root/bobby/build_front.sh
+    - sudo sh /home/root/bobby/build_front.sh
 
 deploy:
   stage: deploy
   script:
-    - sh /home/root/bobby/deploy_front.sh
+    - sudo sh /home/root/bobby/deploy_front.sh
