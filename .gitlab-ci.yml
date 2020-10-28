@@ -7,6 +7,7 @@ build:
   script:
     - npm install
     - npm run build
+    - mkdir /tmp/dist
     - mv dist/* /tmp/dist
 
 deploy:
