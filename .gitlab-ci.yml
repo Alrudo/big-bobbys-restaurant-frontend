@@ -5,16 +5,9 @@ stages:
 build:
   stage: build
   script:
-    - npm install
-    - npm run build
-    - mkdir /tmp/dist
-    - mv dist/* /tmp/dist
+    - sh /home/root/bobby/build_front.sh
 
 deploy:
-  only:
-    - master
   stage: deploy
-  before_script:
-    - echo "Hello"
   script:
-    - echo "World!"
+    - sh /home/root/bobby/deploy_front.sh
