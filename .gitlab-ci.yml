@@ -1,0 +1,19 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - npm install
+    - npm run build
+    - mv dist/* /tmp/dist/*
+
+deploy:
+  only:
+    - master
+  stage: deploy
+  before_script:
+    - echo "Hello"
+  script:
+    - echo "World!"
