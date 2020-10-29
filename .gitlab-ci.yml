@@ -3,8 +3,6 @@ stages:
   - deploy
 
 build:
-  only:
-    - master
   stage: build
   script:
     - sh /home/root/bobby/build_front.sh
