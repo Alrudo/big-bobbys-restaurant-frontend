@@ -1,0 +1,15 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - sh /home/root/bobby/build_front.sh
+
+deploy:
+  only:
+    - master
+  stage: deploy
+  script:
+    - sudo sh /home/root/bobby/deploy_front.sh
