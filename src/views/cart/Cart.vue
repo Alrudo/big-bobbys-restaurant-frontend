@@ -20,7 +20,7 @@
             <b-btn size="lg" router-link to="/menu">Menüü</b-btn>
           </b-col>
           <b-col>
-            <b-btn size="lg">Esita tellimus</b-btn>
+            <b-btn size="lg" router-link to="/order" :disabled="items.length < 1">Esita tellimus</b-btn>
           </b-col>
         </b-row>
       </div>
