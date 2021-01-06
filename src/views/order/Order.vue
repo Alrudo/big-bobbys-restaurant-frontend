@@ -8,43 +8,48 @@
           <div v-if="deliveryType==='withCourier'">
             <h5 class="mb-1 font-weight-bolder">Sihtkoha aadress</h5>
             <div class="form-row mb-3">
-              <div class="col-md-4 mb-3">
-                <input v-model="orderForm.address.street" type="text" class="form-control required" id="streetInput" placeholder="Tänav" required>
-                <div class="invalid-feedback">Peab olema täidetud.</div>
+              <div class="form-group" :class="{ 'form-group--error': $v.street.$error }">
+                <input class="form__input" v-model.trim="$v.street.$model"/>
               </div>
+              <div class="error" v-if="!$v.street.required">Field is required</div>
+              <div class="error" v-if="!$v.street.minLength">Name must have at least {{$v.name.$params.minLength.min}} letters.</div>
+<!--              <div class="col-md-4 mb-3">-->
+<!--                <input v-model.trim="orderForm.address.street" type="text" class="form-control required" id="streetInput" placeholder="Tänav" required>-->
+<!--                <div class="invalid-feedback">Peab olema täidetud.</div>-->
+<!--              </div>-->
               <div class="col-md-4 mb-3">
-                <input v-model="orderForm.address.house" type="text" class="form-control" id="houseNumberInput" placeholder="Maja nr" required>
+                <input v-model.trim="orderForm.address.house" type="text" class="form-control" id="houseNumberInput" placeholder="Maja nr" required>
                 <div class="invalid-feedback">Peab olema täidetud.</div>
               </div>
               <div class="col-md-4">
-                <input v-model="orderForm.address.apartment" type="text" class="form-control" id="apartmentNumberInput" placeholder="Korter">
+                <input v-model.trim="orderForm.address.apartment" type="text" class="form-control" id="apartmentNumberInput" placeholder="Korter">
               </div>
             </div>
           </div>
           <h5 class="mb-1 font-weight-bolder">Sinu andmed</h5>
           <div class="form-row mb-3">
             <div class="col-md-6">
-              <input type="text" class="form-control" id="nameInput" placeholder="Eesnimi" required>
+              <input v-model.trim="orderForm.personalData.name" type="text" class="form-control" id="nameInput" placeholder="Eesnimi" required>
               <div class="invalid-feedback">Peab olema täidetud.</div>
             </div>
             <div class="col-md-6">
-              <input type="text" class="form-control" id="surnameInput" placeholder="Perekonnanimi" required>
-              <div class="invalid-feedback">Peab olema täidetud.</div>
-            </div>
-          </div>
-          <div class="form-row mb-3">
-            <div class="col-md-6">
-              <input type="text" class="form-control" id="phoneNumberInput" placeholder="Telefoni nr" required>
-              <div class="invalid-feedback">Peab olema täidetud.</div>
-            </div>
-            <div class="col-md-6">
-              <input type="text" class="form-control" id="emailInput" placeholder="E-posti aadress" required>
+              <input v-model.trim="orderForm.personalData.surname" type="text" class="form-control" id="surnameInput" placeholder="Perekonnanimi" required>
               <div class="invalid-feedback">Peab olema täidetud.</div>
             </div>
           </div>
           <div class="form-row mb-3">
             <div class="col-md-6">
-              <input type="text" class="form-control" id="companyNameInput" placeholder="Firma nimi">
+              <input v-model.trim="orderForm.personalData.phone" type="text" class="form-control" id="phoneNumberInput" placeholder="Telefoni nr" required>
+              <div class="invalid-feedback">Peab olema täidetud.</div>
+            </div>
+            <div class="col-md-6">
+              <input v-model.trim="orderForm.personalData.email" type="text" class="form-control" id="emailInput" placeholder="E-posti aadress" required>
+              <div class="invalid-feedback">Peab olema täidetud.</div>
+            </div>
+          </div>
+          <div class="form-row mb-3">
+            <div class="col-md-6">
+              <input v-model.trim="orderForm.personalData.company" type="text" class="form-control" id="companyNameInput" placeholder="Firma nimi">
             </div>
           </div>
           <div class="form-row mb-3">
@@ -61,13 +66,13 @@
           <h5 class="mb-1 font-weight-bolder">Lisakommentaarid</h5>
           <div class="form-row mb-3">
             <div class="col-md-12">
-              <input class="form-control" type="text" id="additionalComments" placeholder="Lisakomentaarid">
+              <input v-model.trim="orderForm.comment" class="form-control" type="text" id="additionalComments" placeholder="Lisakomentaarid" maxlength="50">
             </div>
           </div>
           <h5 class="mb-1 font-weight-bolder">Tellimuse täitmise aeg</h5>
           <div class="form-row mb-3">
             <div class="col-md-6 mb-3">
-              <input class="form-control" type="time" id="deliveryTimestampInput">
+              <input v-model="orderForm.deliveryTime" class="form-control" type="time" id="deliveryTimestampInput" min="9:00">
             </div>
           </div>
           <h5 class="mb-1 font-weight-bolder">Vali makseviis</h5>
@@ -256,14 +261,16 @@
       </div>
     </div>
   </div>
+  {{ orderForm }}
   <div class="d-flex justify-content-center">
-    <b-btn class="px-5">Soorita ost</b-btn>
+    <b-btn class="px-5" @click="validateForm()">Soorita ost</b-btn>
   </div>
 </div>
 </template>
 
 <script>
 import OrderItem from "./OrderItem";
+import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
   name: "Order",
@@ -294,8 +301,14 @@ export default {
       }
     }
   },
+  validations: {
+    street: {
+      required,
+      minLength: minLength(3)
+    }
+  },
   components: {
-    OrderItem
+    OrderItem,
   },
   computed: {
     deliveryPrice: function () {
@@ -324,6 +337,9 @@ export default {
         this.paymentType = 'bankLink'
       }
       return 'rgba(186,186,186,0.3)'
+    },
+    validateForm() {
+
     }
   }
 }
