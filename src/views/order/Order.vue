@@ -102,7 +102,7 @@
           <h5 class="mb-1 font-weight-bolder">Tellimuse täitmise aeg</h5>
           <div class="form-row mb-3">
             <div class="col-md-6 mb-3">
-              <input v-model="orderForm.deliveryTime" class="form-control" type="time" id="deliveryTimestampInput">
+              <vue-timepicker v-model="orderForm.deliveryTime" hide-disabled-items :minute-interval="30" :hour-range="[[9, 23]]" close-on-complete></vue-timepicker>
             </div>
           </div>
           <h5 class="mb-1 font-weight-bolder">Vali makseviis</h5>
@@ -147,7 +147,6 @@
               </div>
             </div>
           </div>
-          <!---------------------------------------------- PAYMENT ADDITIONAL INFO ACCORDING TO SELECTED PAYMENT TYPE ------------------------------------------------------->
           <div v-if="orderForm.payment.type==='bankLink'">
             <h5 class="mb-1 font-weight-bolder">Vali pank</h5>
             <div class="form-row">
@@ -360,12 +359,12 @@
       <p v-if="this.$v.orderForm.$dirty && this.$v.orderForm.$error" class="error-msg mt-3">Vorm on täidetud valesti!</p>
     </div>
   </form>
-  {{ orderForm }}
 </div>
 </template>
 
 <script>
 import OrderItem from "./OrderItem";
+import VueTimepicker from 'vue2-timepicker/src/vue-timepicker.vue'
 import  { validationMixin } from 'vuelidate'
 import { required, minLength, email, requiredUnless} from 'vuelidate/lib/validators'
 
@@ -391,8 +390,6 @@ export default {
   },
   data: function () {
     return {
-      // paymentType: "bankLink",
-      // deliveryType: "withCourier",
       shoppingCartItems: [],
       orderForm: {
         deliveryType: 'withCourier',
@@ -421,6 +418,7 @@ export default {
   },
   components: {
     OrderItem,
+    VueTimepicker
   },
   computed: {
     deliveryPrice: function () {
@@ -445,7 +443,7 @@ export default {
     },
     isRequired: function () {
       return this.orderForm.deliveryType !== 'withCourier';
-    }
+    },
   },
   created() {
     this.shoppingCartItems = this.$store.getters.getShoppingCart
