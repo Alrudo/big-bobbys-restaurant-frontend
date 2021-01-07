@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Home</p>
+    <p>Best restaurant</p>
   </div>
 </template>
 
