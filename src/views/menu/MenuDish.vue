@@ -4,7 +4,7 @@
         <img class="w-100" src="@/assets/img/pepperoni-pizza.png" :alt="dish.heading">
         <div class="card-body px-4 pt-3">
           <h5 class="card-title">{{ dish.name }}</h5>
-          <p class="card-text">{{ dish.ingredients.map(x => x.name ).join(", ") }}</p>
+          <p class="card-text">{{ dish.ingredients.map(x => x.name).join(", ") }}</p>
         </div>
         <div class="card-footer px-4 pt-3 text-right">
             <div class="h4">alates {{ Number(dish.price).toFixed(2) }}€</div>
