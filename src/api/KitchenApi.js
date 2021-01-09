@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default {
-  url: 'https://bigbobbyapi.deathcry.ru',
+  url: process.env.VUE_APP_API_BASE,
   getMenu () {
     return axios.get(this.url + '/menu')
   }

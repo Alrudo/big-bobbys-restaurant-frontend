@@ -62,6 +62,7 @@
 
 <script>
 import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
+import AuthApi from "@/api/AuthorityApi";
 
 export default {
   name: "Register",
@@ -89,6 +90,20 @@ export default {
       if (!this.$v.registerForm.$error) {
         console.log("Validation success.")
       }
+
+      AuthApi.registration(
+          this.registerForm.name,
+          this.registerForm.email,
+          this.registerForm.password
+      ).then((resp) => {
+        this.$bvModal.msgBoxOk("Selleks et jätkata logige sisse oma uue kasutajaga", {
+          title: resp.data.message
+        })
+      }).catch((err) => {
+        this.$bvModal.msgBoxOk(err.response.data.message, {
+          title: 'Registreerimise viga'
+        })
+      })
     }
   }
 }
