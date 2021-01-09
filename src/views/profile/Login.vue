@@ -72,8 +72,9 @@ export default {
         this.$store.commit("setJwtToken", { jwt: resp.data.jwt})
 
         // Can be deleted
-        this.$bvModal.msgBoxOk("Oled edukalt sisse loginud!")
+        // this.$bvModal.msgBoxOk("Oled edukalt sisse loginud!")
         // TODO: Token is received and can continue your logic
+        this.$router.push('/profile')
       }).catch((err) => {
         this.$bvModal.msgBoxOk(err.response.data.message, {
           title: 'Autentimise viga'

@@ -445,6 +445,10 @@ export default {
   },
   created() {
     this.shoppingCartItems = this.$store.getters.getShoppingCart
+    if (this.$store.getters.isAuthorized) {
+      this.orderForm.personalData.name = this.$store.getters.getFirstname
+      this.orderForm.personalData.email = this.$store.getters.getEmail
+    }
   },
   methods: {
     bgColor() {

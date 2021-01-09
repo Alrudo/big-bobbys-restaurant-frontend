@@ -49,6 +49,9 @@
                 <p v-if="this.$v.registerForm.rePassword.$dirty && !this.$v.registerForm.rePassword.sameAsPassword && this.$v.registerForm.rePassword.required" class="error-msg">Salasõnad ei ole võrdsed!</p>
               </b-form-group>
               <div class="d-flex justify-content-center">
+                <p v-if="success" style="color: green">Olete edukalt registreerinud.</p>
+              </div>
+              <div class="d-flex justify-content-center">
                 <b-btn class="d-block" type="submit">Registreeri</b-btn>
               </div>
             </b-form>
@@ -76,6 +79,7 @@ export default {
   },
   data: function() {
     return {
+      success: false,
       registerForm: {
         name: '',
         email: '',
@@ -95,10 +99,11 @@ export default {
           this.registerForm.name,
           this.registerForm.email,
           this.registerForm.password
-      ).then((resp) => {
-        this.$bvModal.msgBoxOk("Selleks et jätkata logige sisse oma uue kasutajaga", {
-          title: resp.data.message
-        })
+      ).then(() => {
+        // this.$bvModal.msgBoxOk("Selleks et jätkata logige sisse oma uue kasutajaga", {
+        //   title: resp.data.message
+        // })
+        this.success = true
       }).catch((err) => {
         this.$bvModal.msgBoxOk(err.response.data.message, {
           title: 'Registreerimise viga'
