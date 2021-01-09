@@ -6,10 +6,10 @@ Vue.use(Router)
 export default new Router({
     mode: 'history',
     routes: [
-        // {
-        //     path: '/',
-        //     component: () => import('../views/Home')
-        // },
+        {
+            path: '/',
+            component: () => import('../views/Home')
+        },
         {
             path: '/cart',
             component: () => import('../views/cart/Cart')
@@ -23,7 +23,7 @@ export default new Router({
         //     component: () => import('../views/Gallery')
         // },
         {
-            path: '/',
+            path: '/menu',
             component: () => import('../views/menu/Menu')
         },
         {

@@ -5,7 +5,6 @@
         :dishes="menuItems"
         @fire-modal="fireModal"
     />
-
     <b-modal
         id="modal-1"
         size="lg"

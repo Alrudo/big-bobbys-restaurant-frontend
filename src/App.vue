@@ -6,7 +6,7 @@
     <div id="navbar">
       <b-navbar class="container justify-content-center" type="alert" variant="transparent">
         <b-navbar-nav>
-<!--          <b-nav-item router-link to="/">Avaleht</b-nav-item>-->
+          <b-nav-item router-link to="/">Avaleht</b-nav-item>
           <b-nav-item router-link to="/menu">Menüü</b-nav-item>
           <b-nav-item router-link to="/cart">Ostukorv</b-nav-item>
           <b-nav-item router-link to="/offers">Pakkumised</b-nav-item>
