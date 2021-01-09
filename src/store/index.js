@@ -22,7 +22,7 @@ export default new Vuex.Store({
             return state.jwtData['sub']
         },
         getFirstname(state){
-            if(!state.jwtData) return "Guest"
+            if(!state.jwtData) return "Kasutaja"
             return state.jwtData['firstname']
         },
         hasRole: (state) => (role) => {
@@ -56,6 +56,11 @@ export default new Vuex.Store({
         removeShoppingItem(state, {id}) {
             Vue.delete(state.shoppingCart, id)
             Vue.cookie.set("shopping_cart", JSON.stringify(state.shoppingCart))
+        },
+        logOut(state) {
+            Vue.cookie.delete("jwt")
+            state.jwtToken = null
+            state.jwtData = null
         }
     }
 })

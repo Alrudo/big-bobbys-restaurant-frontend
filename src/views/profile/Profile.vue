@@ -93,6 +93,10 @@ export default {
         console.log("Validation success.")
       }
     }
+  },
+  created() {
+    this.form.name = this.$store.getters.getFirstname
+    this.form.email = this.$store.getters.getEmail
   }
 }
 </script>

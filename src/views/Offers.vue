@@ -23,7 +23,12 @@
 
 <script>
 export default {
-name: "Offers"
+  name: "Offers",
+  created() {
+    if (!this.$store.getters.isAuthorized) {
+      this.$router.push('/register')
+    }
+  }
 }
 </script>
 

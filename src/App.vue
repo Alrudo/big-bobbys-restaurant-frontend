@@ -20,20 +20,19 @@
               <b-nav-item router-link to="/offers">Pakkumised</b-nav-item>
               <!--<b-nav-item router-link to="/gallery">Galerii</b-nav-item>-->
               <b-nav-item router-link to="/contacts">Kontakt</b-nav-item>
-              <b-nav-item-dropdown v-if="!loggedIn" right>
+              <b-nav-item-dropdown v-if="!isLoggedIn" right>
                 <template #button-content>
                   <em>Kasutaja</em>
                 </template>
                 <b-dropdown-item class="text-center" router-link to="/register">Registreeri</b-dropdown-item>
                 <b-dropdown-item class="text-center" router-link to="/login">Logi sisse</b-dropdown-item>
               </b-nav-item-dropdown>
-              <b-nav-item-dropdown v-if="loggedIn" right>
+              <b-nav-item-dropdown v-if="isLoggedIn" right>
                 <template #button-content>
-                  <!-- ADD USER NAME INTERPOLATION HERE AFTER LOGIN SYSTEM IN BACK IS IMPLEMENTED -->
-                  <em>Kasutaja</em>
+                  <em>{{ userName }}</em>
                 </template>
                 <b-dropdown-item router-link to="/profile">Profiil</b-dropdown-item>
-                <b-dropdown-item @click="loggedIn=false">Logi välja</b-dropdown-item>
+                <b-dropdown-item @click="logOut">Logi välja</b-dropdown-item>
               </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
@@ -50,7 +49,6 @@ export default {
   name: 'App',
   data: function () {
     return {
-      loggedIn: false,
       items: [
         {
           menu: []
@@ -60,6 +58,21 @@ export default {
   },
   components: {
     BIcon
+  },
+  computed: {
+    userName: function () {
+      console.log(this.$store.state.jwtToken  )
+      return this.$store.getters.getFirstname
+    },
+    isLoggedIn: function () {
+      return this.$store.getters.isAuthorized
+    }
+  },
+  methods: {
+    logOut: function () {
+      this.$store.commit('logOut')
+      this.$router.push('/login')
+    }
   }
 }
 </script>
