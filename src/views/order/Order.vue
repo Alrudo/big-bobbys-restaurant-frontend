@@ -16,7 +16,7 @@
                        id="streetInput"
                        placeholder="Tänav*">
                 <p v-if="this.$v.orderForm.address.street.$dirty && !this.$v.orderForm.address.street.requiredIfCourier" class="error-msg">Peab olema täidetud!</p>
-                <p v-if="this.$v.orderForm.address.street.$dirty && !this.$v.orderForm.address.street.minLength" class="error-msg">Peab olema rohkem kui 3 sümbolit!</p>
+                <p v-if="this.$v.orderForm.address.street.$dirty && !this.$v.orderForm.address.street.minLength" class="error-msg">Peab olema rohkem kui 2 sümbolit!</p>
               </div>
               <div class="col-md-4 mb-3">
                 <input v-model.trim="orderForm.address.house"
@@ -365,14 +365,12 @@
 <script>
 import OrderItem from "./OrderItem";
 import VueTimepicker from 'vue2-timepicker/src/vue-timepicker.vue'
-import  { validationMixin } from 'vuelidate'
 import { required, minLength, email, requiredUnless} from 'vuelidate/lib/validators'
 
 const requiredIfCourier = requiredUnless(function () {return this.isRequired})
 
 export default {
   name: "Order",
-  mixins: [validationMixin],
   validations: {
     orderForm: {
       address: {
