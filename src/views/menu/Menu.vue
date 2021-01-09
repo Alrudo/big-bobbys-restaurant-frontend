@@ -60,7 +60,7 @@
 
 <script>
 import MenuDropdown from "@/views/menu/MenuCollapse";
-import KitchenApi from "@/APIs/KitchenApi";
+import KitchenApi from "@/api/KitchenApi";
 
 export default {
   name: "Menu",

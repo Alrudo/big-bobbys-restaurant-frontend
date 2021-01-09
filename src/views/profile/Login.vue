@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import AuthApi from "@/api/AuthorityApi"
 import { required, minLength, email } from 'vuelidate/lib/validators'
 
 export default {
@@ -63,9 +64,21 @@ export default {
   methods: {
     validateLoginForm: function () {
       this.$v.loginForm.$touch()
-      if (!this.$v.loginForm.$error) {
-        console.log("Validation success.")
+      if (this.$v.loginForm.$error) {
+        return
       }
+
+      AuthApi.basicAuth(this.loginForm.email, this.loginForm.password).then((resp) => {
+        this.$store.commit("setJwtToken", { jwt: resp.data.jwt})
+
+        // Can be deleted
+        this.$bvModal.msgBoxOk("Oled edukalt sisse loginud!")
+        // TODO: Token is received and can continue your logic
+      }).catch((err) => {
+        this.$bvModal.msgBoxOk(err.response.data.message, {
+          title: 'Autentimise viga'
+        })
+      })
     }
   }
 }

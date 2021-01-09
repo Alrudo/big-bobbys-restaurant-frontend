@@ -1,23 +1,49 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import jwt_decode from "jwt-decode"
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        shoppingCart: []
+        shoppingCart: [],
+        jwtToken: null,
+        jwtData: null
     },
     getters: {
         getShoppingCart(state) {
             return state.shoppingCart
+        },
+        isAuthorized(state){
+            return state.jwtData != null
+        },
+        getEmail(state){
+            if(!state.jwtData) return null
+            return state.jwtData['sub']
+        },
+        getFirstname(state){
+            if(!state.jwtData) return "Guest"
+            return state.jwtData['firstname']
+        },
+        hasRole: (state) => (role) => {
+            return state.jwtData['scope'].includes(role)
         }
     },
     mutations: {
         loadCookies(state) {
             state.shoppingCart = JSON.parse(Vue.cookie.get("shopping_cart"))
+            state.jwtToken = Vue.cookie.get("jwt")
+            if (state.jwtToken) {
+                state.jwtData = jwt_decode(state.jwtToken);
+            }
             if (!state.shoppingCart) {
                 state.shoppingCart = []
             }
+        },
+        setJwtToken(state, {jwt}) {
+            state.jwtToken = jwt
+            Vue.cookie.set("jwt", state.jwtToken)
+            state.jwtData = jwt_decode(jwt);
         },
         addShoppingItem(state, {item}) {
             state.shoppingCart.push(item)
